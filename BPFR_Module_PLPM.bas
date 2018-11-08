@@ -83,7 +83,7 @@ Sub BPFR_Load_For_Assigne()
     
     'copy all records
     strSQL = "SELECT Key_SPS_Data, Model_Number, Model_Description, Project_Number, Deliverable_Name, DLI_Line_Item, SPS_Owner, Plant_Code, PML_Region, PBU, Product_Family, Detailed_Customer_Name,"
-    strSQL = strSQL & "Parent_Customer, Volumes_Y_1, Revenue_Y_1, Volumes_Y_2, Revenue_Y_2, Volumes_Y_3, Revenue_Y_3, Status_SPS, SPS_AssignedPLPLPLPM, Date, SPS_AssignedPLPLPLPM FROM PLPM_View_Assign_3Scope WHERE PBU ='" & PBU_User & "'"
+    strSQL = strSQL & "Parent_Customer, Volumes_Y_1, Revenue_Y_1, Volumes_Y_2, Revenue_Y_2, Volumes_Y_3, Revenue_Y_3, Status_SPS, SPS_AssignedPLPLPLPM, Date, GPL, SPS_AssignedPLPLPLPM FROM PLPM_View_Assign_3Scope WHERE PBU ='" & PBU_User & "'"
     
     Region_Global = MsgBox("Would You like to load SPS Unrecognized End Model Numbers Information - Globally?" & vbNewLine & "[Clicking: 'Yes' = Globally // 'No' = Your former Region]", vbYesNo + vbQuestion, "Globally or Regionally view")
     If Region_Global = vbNo Then
@@ -235,26 +235,34 @@ Sub BPFR_Formatting_Assign_Tab()
     wb.Sheets("Assign_Model_3_Years_Scope").Select
     For CRow = 6 To LastRow
         If CRow Mod 2 = 0 Then
-            With Range(Cells(CRow, 1), Cells(CRow, 22)).Interior
+            'With Range(Cells(CRow, 1), Cells(CRow, 22)).Interior
+            'because of column GPL
+            With Range(Cells(CRow, 1), Cells(CRow, 23)).Interior
+                
                 .Pattern = xlSolid
                 .PatternColorIndex = xlAutomatic
                 .ThemeColor = xlThemeColorAccent1
                 .TintAndShade = -0.249977111117893
                 .PatternTintAndShade = 0
             End With
-            With Range(Cells(CRow, 1), Cells(CRow, 22)).Font
+           'column GPL
+           'With Range(Cells(CRow, 1), Cells(CRow, 22)).Font
+            With Range(Cells(CRow, 1), Cells(CRow, 23)).Font
                 .ThemeColor = xlThemeColorDark1
                 .TintAndShade = 0
             End With
         Else
-            With Range(Cells(CRow, 1), Cells(CRow, 22)).Interior
+'            With Range(Cells(CRow, 1), Cells(CRow, 22)).Interior
+            With Range(Cells(CRow, 1), Cells(CRow, 23)).Interior
+                
                 .Pattern = xlSolid
                 .PatternColorIndex = xlAutomatic
                 .ThemeColor = xlThemeColorLight2
                 .TintAndShade = 0.399975585192419
                 .PatternTintAndShade = 0
             End With
-            With Range(Cells(CRow, 1), Cells(CRow, 22)).Font
+            'With Range(Cells(CRow, 1), Cells(CRow, 22)).Font
+            With Range(Cells(CRow, 1), Cells(CRow, 23)).Font
                 .ThemeColor = xlThemeColorDark1
                 .TintAndShade = 0
             End With
@@ -410,7 +418,7 @@ Sub BPFR_Update_Assignment()
                 If wb.Sheets("Assign_Model_3_Years_Scope").Cells(i, 21).Validation.Value = True Then
                     If wb.Sheets("Assign_Model_3_Years_Scope").Cells(i, 21).Value <> wb.Sheets("Assign_Model_3_Years_Scope").Cells(i, 23).Value Then
                         wb.Sheets("Assign_Model_3_Years_Scope").Cells(i, 20).Value = "Assigned"
-                        wb.Sheets("Assign_Model_3_Years_Scope").Cells(i, 23).Value = wb.Sheets("Assign_Model_3_Years_Scope").Cells(i, 21).Value
+                       ' wb.Sheets("Assign_Model_3_Years_Scope").Cells(i, 23).Value = wb.Sheets("Assign_Model_3_Years_Scope").Cells(i, 21).Value
                         wb.Sheets("Assign_Model_3_Years_Scope").Cells(i, 22).Value = Format(BLT_REF_Macros.GMT, "mm/dd/yyyy hh:mm AM/PM")
                         Key_SPS = wb.Sheets("Assign_Model_3_Years_Scope").Cells(i, 1).Value
                         With myRecordset
@@ -944,7 +952,7 @@ Sub BPFR_Load_For_Assigne_Booked()
     'copy all records
     strSQL = "SELECT Key_SPS_Data, Model_Number, Model_Description, Project_Number, Deliverable_Name, DLI_Line_Item, SPS_Owner, Plant_Code, PML_Region, PBU, Product_Family, Detailed_Customer_Name,"
     strSQL = strSQL & "Parent_Customer, Volumes_Y_1, Revenue_Y_1, Volumes_Y_2, Revenue_Y_2, Volumes_Y_3, Revenue_Y_3, Volumes_Y_4, Revenue_Y_4, Volumes_Y_5, Revenue_Y_5, Volumes_Y_6, Revenue_Y_6, Volumes_Y_7, Revenue_Y_7, Volumes_Y_8, Revenue_Y_8, Volumes_Y_9, Revenue_Y_9, Volumes_Y_10, Revenue_Y_10,"
-    strSQL = strSQL & "Total_Revenue ,Status_SPS, SPS_AssignedPLPLPLPM, Date, SPS_AssignedPLPLPLPM FROM PLPM_View_Assign_Booked WHERE PBU ='" & PBU_User & "'"
+    strSQL = strSQL & "Total_Revenue ,Status_SPS, SPS_AssignedPLPLPLPM, Date, GPL, SPS_AssignedPLPLPLPM FROM PLPM_View_Assign_Booked WHERE PBU ='" & PBU_User & "'"
     
     'Region_Global = MsgBox("Would You like to load SPS Unrecognized End Model Numbers Information - Globally?" & vbNewLine & "[Clicking: 'Yes' = Globally // 'No' = Your former Region]", vbYesNo + vbQuestion, "Globally or Regionally view")
     If Region_Global = vbNo Then
@@ -1015,7 +1023,7 @@ Sub BPFR_Load_For_Assigne_Booked()
     Exit Sub
 
 Errr:
-    MsgBox "There was not found any value for Your PBU: " & PBU_User & " and Region: " & Region_selected & "."
+    MsgBox "No value was found for your PBU: " & PBU_User & " and Region: " & Region_selected & "."
     
     '============================= Sub Bar Script Start =============================
         SubCounter = lFieldCount
@@ -1085,7 +1093,9 @@ Sub BPFR_Formatting_Assign_Tab_Booked()
     LastRow = wb.Sheets("Assign_Model_Leverage_Data").Cells(Sheets("Assign_Model_Leverage_Data").Rows.Count, "A").End(xlUp).Row
     
     wb.Sheets("Assign_Model_Leverage_Data").AutoFilterMode = False
-    wb.Sheets("Assign_Model_Leverage_Data").Range("A5:AL" & LastRow).AutoFilter
+'    wb.Sheets("Assign_Model_Leverage_Data").Range("A5:AL" & LastRow).AutoFilter
+' Because GPL colun was added
+     wb.Sheets("Assign_Model_Leverage_Data").Range("A5:AM" & LastRow).AutoFilter
     
     wb.Sheets("Assign_Model_Leverage_Data").AutoFilter.Sort.SortFields.Add Key _
         :=Range("AH5:AH" & LastRow), SortOn:=xlSortOnValues, Order:=xlDescending, _
@@ -1119,26 +1129,37 @@ Sub BPFR_Formatting_Assign_Tab_Booked()
     wb.Sheets("Assign_Model_Leverage_Data").Select
     For CRow = 6 To LastRow
         If CRow Mod 2 = 0 Then
-            With Range(Cells(CRow, 1), Cells(CRow, 37)).Interior
+        '    With Range(Cells(CRow, 1), Cells(CRow, 37)).Interior
+        '    because GPL column was added
+             With Range(Cells(CRow, 1), Cells(CRow, 38)).Interior
+                
                 .Pattern = xlSolid
                 .PatternColorIndex = xlAutomatic
                 .ThemeColor = xlThemeColorAccent1
                 .TintAndShade = -0.249977111117893
                 .PatternTintAndShade = 0
             End With
-            With Range(Cells(CRow, 1), Cells(CRow, 37)).Font
+        '    With Range(Cells(CRow, 1), Cells(CRow, 37)).Font
+        '    because GPL column was added
+        
+             With Range(Cells(CRow, 1), Cells(CRow, 38)).Font
                 .ThemeColor = xlThemeColorDark1
                 .TintAndShade = 0
             End With
         Else
-            With Range(Cells(CRow, 1), Cells(CRow, 37)).Interior
+        '   With Range(Cells(CRow, 1), Cells(CRow, 37)).Interior
+            'because GPL column was added
+            With Range(Cells(CRow, 1), Cells(CRow, 38)).Interior
                 .Pattern = xlSolid
                 .PatternColorIndex = xlAutomatic
                 .ThemeColor = xlThemeColorLight2
                 .TintAndShade = 0.399975585192419
                 .PatternTintAndShade = 0
             End With
-            With Range(Cells(CRow, 1), Cells(CRow, 37)).Font
+            'With Range(Cells(CRow, 1), Cells(CRow, 37)).Font
+            'because GPL column was added
+            With Range(Cells(CRow, 1), Cells(CRow, 38)).Font
+                
                 .ThemeColor = xlThemeColorDark1
                 .TintAndShade = 0
             End With
@@ -1264,8 +1285,10 @@ Sub BPFR_Update_Assignment_Booked()
                 If wb.Sheets("Assign_Model_Leverage_Data").Cells(i, 36).Validation.Value = True Then
                     If wb.Sheets("Assign_Model_Leverage_Data").Cells(i, 36).Value <> wb.Sheets("Assign_Model_Leverage_Data").Cells(i, 38).Value Then
                         wb.Sheets("Assign_Model_Leverage_Data").Cells(i, 35).Value = "Assigned"
-                        wb.Sheets("Assign_Model_Leverage_Data").Cells(i, 38).Value = wb.Sheets("Assign_Model_Leverage_Data").Cells(i, 36).Value
+                        'wb.Sheets("Assign_Model_Leverage_Data").Cells(i, 38).Value = wb.Sheets("Assign_Model_Leverage_Data").Cells(i, 36).Value
                         wb.Sheets("Assign_Model_Leverage_Data").Cells(i, 37).Value = Format(BLT_REF_Macros.GMT, "mm/dd/yyyy hh:mm AM/PM")
+                       
+                        
                         Key_SPS = wb.Sheets("Assign_Model_Leverage_Data").Cells(i, 1).Value
                         With myRecordset
                            .Open "Select * from BPF_SPS_Data_Booked Where Key_SPS_Data = '" & Key_SPS & "'", _
@@ -1274,6 +1297,7 @@ Sub BPFR_Update_Assignment_Booked()
                            .Fields("SPS_AssignedPLPLPLPM").Value = wb.Sheets("Assign_Model_Leverage_Data").Cells(i, 36).Value
                            .Fields("SPS_UserAssi").Value = Name_User
                            .Fields("Date").Value = wb.Sheets("Assign_Model_Leverage_Data").Cells(i, 37).Value
+                          ' .Fields("GPL").Value = wb.Sheet("Assign_Model_Leverage_Data").Cells(i, 38).Value
                            .Update
                            .Close
                         End With
@@ -1302,14 +1326,14 @@ Sub BPFR_Update_Assignment_Booked()
     Set myRecordset = Nothing
     Set conn = Nothing
 
-    MsgBox Test_Change & " updates successful added to BOM Leverage Database."
+    MsgBox Test_Change & " updates successfully added to BOM Leverage Database."
     
     Application.ScreenUpdating = True
     Exit Sub
         
 Errr:
     Application.ScreenUpdating = True
-    MsgBox "Something went wrong - please wait for 5 minutes and if the Error will occure again contact with Pagacz, Dominik."
+    MsgBox "Something went wrong - please wait for 5 minutes and if the Error will occure again contact with Zych, Pawel."
     
     '============================= Sub Bar Script Start =============================
         SubCounter = Test_Change

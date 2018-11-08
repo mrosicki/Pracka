@@ -92,7 +92,7 @@ Sub BPFR_Load_For_Assigne_connection()
     
     'copy all records
     strSQL = "SELECT Key_SPS_Data, Model_Number, Model_Description, Project_Number, Deliverable_Name, DLI_Line_Item, SPS_Owner, Plant_Code, PML_Region, PBU, Product_Family, Detailed_Customer_Name,"
-    strSQL = strSQL & "Parent_Customer, Volumes_Y_1, Revenue_Y_1, Volumes_Y_2, Revenue_Y_2, Volumes_Y_3, Revenue_Y_3, Status_SPS, BPF_Source, Rep_Model_Number, BLT_Key, Comments, Date, BPF_Source, Rep_Model_Number, BLT_Key, Comments FROM PLPL_View_Connect_SPS_3Scope WHERE SPS_AssignedPLPLPLPM ='" & UserName & "'"
+    strSQL = strSQL & "Parent_Customer, Volumes_Y_1, Revenue_Y_1, Volumes_Y_2, Revenue_Y_2, Volumes_Y_3, Revenue_Y_3, Status_SPS, BPF_Source, Rep_Model_Number, BLT_Key, Comments, Date, BPF_Source, Rep_Model_Number, BLT_Key, Comments, GPL FROM PLPL_View_Connect_SPS_3Scope WHERE SPS_AssignedPLPLPLPM ='" & UserName & "'"
     
     Completed_Load = MsgBox("Would You like to load Completed SPS End Model Numbers?", vbYesNo + vbQuestion, "Load Completed?")
     If Completed_Load = vbYes Then
@@ -253,19 +253,22 @@ Sub BPFR_Formatting_Assign_Tab()
                 .TintAndShade = -0.249977111117893
                 .PatternTintAndShade = 0
             End With
-            With Range(Cells(CRow, 1), Cells(CRow, 25)).Font
+     '       With Range(Cells(CRow, 1), Cells(CRow, 25)).Font
+            With Range(Cells(CRow, 1), Cells(CRow, 30)).Font
                 .ThemeColor = xlThemeColorDark1
                 .TintAndShade = 0
             End With
         Else
-            With Range(Cells(CRow, 1), Cells(CRow, 25)).Interior
+      '      With Range(Cells(CRow, 1), Cells(CRow, 25)).Interior
+            With Range(Cells(CRow, 1), Cells(CRow, 30)).Font
                 .Pattern = xlSolid
                 .PatternColorIndex = xlAutomatic
                 .ThemeColor = xlThemeColorLight2
                 .TintAndShade = 0.399975585192419
                 .PatternTintAndShade = 0
             End With
-            With Range(Cells(CRow, 1), Cells(CRow, 25)).Font
+       '    With Range(Cells(CRow, 1), Cells(CRow, 25)).Font
+            With Range(Cells(CRow, 1), Cells(CRow, 30)).Font
                 .ThemeColor = xlThemeColorDark1
                 .TintAndShade = 0
             End With
@@ -782,26 +785,30 @@ Sub BPFR_Formatting_Connection_Tab_Booked()
     wb.Sheets("Connect_Model_Leverage_Data").Select
     For CRow = 6 To LastRow
         If CRow Mod 2 = 0 Then
-            With Range(Cells(CRow, 1), Cells(CRow, 40)).Interior
+            'With Range(Cells(CRow, 1), Cells(CRow, 40)).Interior
+             With Range(Cells(CRow, 1), Cells(CRow, 45)).Interior
                 .Pattern = xlSolid
                 .PatternColorIndex = xlAutomatic
                 .ThemeColor = xlThemeColorAccent1
                 .TintAndShade = -0.249977111117893
                 .PatternTintAndShade = 0
             End With
-            With Range(Cells(CRow, 1), Cells(CRow, 40)).Font
+           ' With Range(Cells(CRow, 1), Cells(CRow, 40)).Font
+             With Range(Cells(CRow, 1), Cells(CRow, 45)).Interior
                 .ThemeColor = xlThemeColorDark1
                 .TintAndShade = 0
             End With
         Else
-            With Range(Cells(CRow, 1), Cells(CRow, 40)).Interior
+           ' With Range(Cells(CRow, 1), Cells(CRow, 40)).Interior
+            With Range(Cells(CRow, 1), Cells(CRow, 45)).Interior
                 .Pattern = xlSolid
                 .PatternColorIndex = xlAutomatic
                 .ThemeColor = xlThemeColorLight2
                 .TintAndShade = 0.399975585192419
                 .PatternTintAndShade = 0
             End With
-            With Range(Cells(CRow, 1), Cells(CRow, 40)).Font
+          '  With Range(Cells(CRow, 1), Cells(CRow, 40)).Font
+          With Range(Cells(CRow, 1), Cells(CRow, 45)).Interior
                 .ThemeColor = xlThemeColorDark1
                 .TintAndShade = 0
             End With
@@ -957,7 +964,7 @@ Sub BPFR_Load_For_Leverage_Connection()
     'copy all records
     strSQL = "SELECT Key_SPS_Data, Model_Number, Model_Description, Project_Number, Deliverable_Name, DLI_Line_Item, SPS_Owner, Plant_Code, PML_Region, PBU, Product_Family, Detailed_Customer_Name,"
     strSQL = strSQL & "Parent_Customer, Volumes_Y_1, Revenue_Y_1, Volumes_Y_2, Revenue_Y_2, Volumes_Y_3, Revenue_Y_3, Volumes_Y_4, Revenue_Y_4, Volumes_Y_5, Revenue_Y_5, Volumes_Y_6, Revenue_Y_6, Volumes_Y_7, Revenue_Y_7, Volumes_Y_8, Revenue_Y_8, Volumes_Y_9, Revenue_Y_9, Volumes_Y_10, Revenue_Y_10,"
-    strSQL = strSQL & "Total_Revenue ,Status_SPS, BPF_Source, Rep_Model_Number, BLT_Key, Comments, Date, BPF_Source, Rep_Model_Number, BLT_Key, Comments FROM PLPL_View_Connect_SPS_Leverage WHERE SPS_AssignedPLPLPLPM ='" & UserName & "'"
+    strSQL = strSQL & "Total_Revenue ,Status_SPS, BPF_Source, Rep_Model_Number, BLT_Key, Comments, Date, BPF_Source, Rep_Model_Number, BLT_Key, Comments, GPL FROM PLPL_View_Connect_SPS_Leverage WHERE SPS_AssignedPLPLPLPM ='" & UserName & "'"
     
     'Completed_Load = MsgBox("Would You like to load Completed SPS End Model Numbers?", vbYesNo + vbQuestion, "Load Completed?")
     If Completed_Load = vbYes Then
